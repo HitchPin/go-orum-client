@@ -1,0 +1,581 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Webhooks API",
+    "description": "Orum Webhook Configuration Service",
+    "version": "v2022-09-21"
+  },
+  "servers": [
+    {
+      "url": "https://api-sandbox.orum.io"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Webhook",
+      "description": "Webhook configuration APIs."
+    }
+  ],
+  "paths": {
+    "/webhooks/configurations": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "create-webhook-configuration",
+        "summary": "Create Webhook Configuration",
+        "description": "Configure a webhook URL for specific event types.",
+        "parameters": [
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWebhookConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "200 response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWebhookConfigurationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "list-webhook-configurations",
+        "summary": "List webhook configurations",
+        "description": "List all webhook configurations",
+        "parameters": [
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          },
+          {
+            "name": "index",
+            "description": "Index for paginated results",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "x-orum-error-invalid": {
+              "known-error": "index"
+            }
+          },
+          {
+            "name": "size",
+            "description": "Max number of results to return",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 0,
+              "maximum": 500
+            },
+            "x-orum-error-invalid": {
+              "known-error": "size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListWebhookConfigurationsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/webhooks/invoke": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "invoke-webhook",
+        "summary": "Invoke webhook",
+        "description": "Invoke a webhook",
+        "parameters": [
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvokeWebhookConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Invoked."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/webhooks/configurations/{id}": {
+      "put": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "update-webhook-configuration",
+        "summary": "Update Webhook Configuration",
+        "description": "Update a webhook URL for specific event types.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWebhookConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "200 response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWebhookConfigurationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "delete-webhook-configuration",
+        "summary": "Delete webhook configuration",
+        "description": "Delete webhook configuration by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted."
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/webhooks/secret": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "initialize-keypair",
+        "summary": "Initialize keypair",
+        "description": "Initialize secure webhook keypair",
+        "parameters": [
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InitializeKeypairResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "The auth token received from Authentication endpoints."
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error_code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "OrumVersion": {
+        "enum": [
+          "v2022-09-21"
+        ],
+        "type": "string",
+        "description": "Version of Deliver API. Use v2022-09-21."
+      },
+      "OrumId": {
+        "type": "string",
+        "description": "Orum generated unique id for the resource.",
+        "format": "uuid"
+      },
+      "WebhookEventType": {
+        "type": "string",
+        "enum": ["subscribe_all","person_created","person_verified","person_rejected","person_restricted","person_unverified","person_closed","person_all","business_created","business_verified","business_rejected","business_restricted","business_unverified","business_closed","business_all","external_account_created","external_account_verified","external_account_rejected","external_account_restricted","external_account_unverified","external_account_closed","external_account_all","transfer_updated","transfer_all","verify_account_updated"]
+      },
+      "InitializeKeypairResponse": {
+        "type": "object",
+        "properties": {
+          "enterprise_keypair": {
+            "$ref": "#/components/schemas/EnterpriseKeypair"
+          }
+        },
+        "required": ["enterprise_keypair"]
+      },
+      "EnterpriseKeypair": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "enterprise_name": {
+            "type": "string"
+          },
+          "public_key": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": ["id","enterprise_name","public_key","created_at","updated_at"]
+      },
+      "CreateWebhookConfiguration": {
+        "type": "object",
+        "properties": {
+          "event_types": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebhookEventType"
+            },
+            "minItems": 1
+          },
+          "enabled": {
+            "enum": ["true","false"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["event_types","enabled","url"]
+      },
+      "CreateWebhookConfigurationResponse": {
+        "type": "object",
+        "properties": {
+          "webhook_configuration": {
+            "$ref": "#/components/schemas/WebhookConfigurationSummary"
+          }
+        },
+        "required": ["webhook_configuration"]
+      },
+      "InvokeWebhookConfiguration": {
+        "type": "object",
+        "properties": {
+          "event_type": {
+            "$ref": "#/components/schemas/WebhookEventType"
+          },
+          "data": {
+            "type": "object"
+          }
+        },
+        "required": ["event_type","data"]
+      },
+      "ListWebhookConfigurationsResponse": {
+        "type": "object",
+        "properties": {
+          "webhook_configurations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebhookConfigurationSummary"
+            }
+          }
+        }
+      },
+      "WebhookConfigurationSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "enterprise_name": {
+            "type": "string"
+          },
+          "data_version": {
+            "type": "string"
+          },
+          "event_types": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WebhookEventType"
+            },
+            "minItems": 1
+          },
+          "enabled": {
+            "enum": ["true","false"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          }
+        },
+        "required": ["event_types","enabled","url","id","enterprise_name","data_version"]
+      }
+    }
+  },
+  "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  }
+}

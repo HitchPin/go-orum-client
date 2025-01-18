@@ -1,0 +1,5 @@
+Warning: KiotaBuilder OpenAPI warning: #/components/schemas/Email - The format email is not supported by Kiota and the string type will be used.
+Warning: KiotaBuilder OpenAPI warning: #/components/schemas/CreateWebhookConfiguration/properties/url - The format uri is not supported by Kiota and the string type will be used.
+Warning: KiotaBuilder OpenAPI warning: #/components/schemas/WebhookConfigurationSummary/properties/url - The format uri is not supported by Kiota and the string type will be used.
+Warning: KiotaBuilder Discriminator PatchContactRequestPerson is not inherited from ContactBasePerson.
+Warning: KiotaBuilder Discriminator ContactBasePerson is not inherited from PatchContactRequestPerson.
