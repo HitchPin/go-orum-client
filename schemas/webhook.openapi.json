@@ -410,6 +410,57 @@
             "bearerAuth": []
           }
         ]
+      },
+      "get": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "list-webhook-configurations",
+        "summary": "List webhook configurations",
+        "description": "List all webhook configurations",
+        "parameters": [
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetKeypairResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -479,6 +530,15 @@
         },
         "required": ["id","enterprise_name","public_key","created_at","updated_at"]
       },
+      "GetKeypairResponse": {
+        "type": "object",
+        "properties": {
+          "enterprise_keypair": {
+            "$ref": "#/components/schemas/EnterpriseKeypair"
+          }
+        },
+        "required": ["enterprise_keypair"]
+      },
       "CreateWebhookConfiguration": {
         "type": "object",
         "properties": {
@@ -490,7 +550,7 @@
             "minItems": 1
           },
           "enabled": {
-            "enum": ["true","false"]
+            "type": "boolean"
           },
           "url": {
             "type": "string",
@@ -551,7 +611,7 @@
             "minItems": 1
           },
           "enabled": {
-            "enum": ["true","false"]
+            "type": "boolean"
           },
           "url": {
             "type": "string",

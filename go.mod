@@ -16,6 +16,8 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/microsoft/kiota-bundle-go v1.3.0 // indirect
+	github.com/microsoft/kiota-http-go v1.4.7 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/std-uritemplate/std-uritemplate/go/v2 v2.0.1 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect

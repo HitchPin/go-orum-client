@@ -8,7 +8,7 @@ type CreateWebhookConfiguration struct {
     // Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additionalData map[string]any
     // The enabled property
-    enabled *CreateWebhookConfiguration_enabled
+    enabled *bool
     // The event_types property
     event_types []WebhookEventType
     // The url property
@@ -32,8 +32,8 @@ func (m *CreateWebhookConfiguration) GetAdditionalData()(map[string]any) {
     return m.additionalData
 }
 // GetEnabled gets the enabled property value. The enabled property
-// returns a *CreateWebhookConfiguration_enabled when successful
-func (m *CreateWebhookConfiguration) GetEnabled()(*CreateWebhookConfiguration_enabled) {
+// returns a *bool when successful
+func (m *CreateWebhookConfiguration) GetEnabled()(*bool) {
     return m.enabled
 }
 // GetEventTypes gets the event_types property value. The event_types property
@@ -46,12 +46,12 @@ func (m *CreateWebhookConfiguration) GetEventTypes()([]WebhookEventType) {
 func (m *CreateWebhookConfiguration) GetFieldDeserializers()(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error)) {
     res := make(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error))
     res["enabled"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
-        val, err := n.GetEnumValue(ParseCreateWebhookConfiguration_enabled)
+        val, err := n.GetBoolValue()
         if err != nil {
             return err
         }
         if val != nil {
-            m.SetEnabled(val.(*CreateWebhookConfiguration_enabled))
+            m.SetEnabled(val)
         }
         return nil
     }
@@ -90,9 +90,8 @@ func (m *CreateWebhookConfiguration) GetUrl()(*string) {
 }
 // Serialize serializes information the current object
 func (m *CreateWebhookConfiguration) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
-    if m.GetEnabled() != nil {
-        cast := (*m.GetEnabled()).String()
-        err := writer.WriteStringValue("enabled", &cast)
+    {
+        err := writer.WriteBoolValue("enabled", m.GetEnabled())
         if err != nil {
             return err
         }
@@ -122,7 +121,7 @@ func (m *CreateWebhookConfiguration) SetAdditionalData(value map[string]any)() {
     m.additionalData = value
 }
 // SetEnabled sets the enabled property value. The enabled property
-func (m *CreateWebhookConfiguration) SetEnabled(value *CreateWebhookConfiguration_enabled)() {
+func (m *CreateWebhookConfiguration) SetEnabled(value *bool)() {
     m.enabled = value
 }
 // SetEventTypes sets the event_types property value. The event_types property
@@ -136,10 +135,10 @@ func (m *CreateWebhookConfiguration) SetUrl(value *string)() {
 type CreateWebhookConfigurationable interface {
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.AdditionalDataHolder
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable
-    GetEnabled()(*CreateWebhookConfiguration_enabled)
+    GetEnabled()(*bool)
     GetEventTypes()([]WebhookEventType)
     GetUrl()(*string)
-    SetEnabled(value *CreateWebhookConfiguration_enabled)()
+    SetEnabled(value *bool)()
     SetEventTypes(value []WebhookEventType)()
     SetUrl(value *string)()
 }

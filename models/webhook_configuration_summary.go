@@ -14,7 +14,7 @@ type WebhookConfigurationSummary struct {
     // The data_version property
     data_version *string
     // The enabled property
-    enabled *WebhookConfigurationSummary_enabled
+    enabled *bool
     // The enterprise_name property
     enterprise_name *string
     // The event_types property
@@ -61,8 +61,8 @@ func (m *WebhookConfigurationSummary) GetDataVersion()(*string) {
     return m.data_version
 }
 // GetEnabled gets the enabled property value. The enabled property
-// returns a *WebhookConfigurationSummary_enabled when successful
-func (m *WebhookConfigurationSummary) GetEnabled()(*WebhookConfigurationSummary_enabled) {
+// returns a *bool when successful
+func (m *WebhookConfigurationSummary) GetEnabled()(*bool) {
     return m.enabled
 }
 // GetEnterpriseName gets the enterprise_name property value. The enterprise_name property
@@ -110,12 +110,12 @@ func (m *WebhookConfigurationSummary) GetFieldDeserializers()(map[string]func(i8
         return nil
     }
     res["enabled"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
-        val, err := n.GetEnumValue(ParseWebhookConfigurationSummary_enabled)
+        val, err := n.GetBoolValue()
         if err != nil {
             return err
         }
         if val != nil {
-            m.SetEnabled(val.(*WebhookConfigurationSummary_enabled))
+            m.SetEnabled(val)
         }
         return nil
     }
@@ -227,9 +227,8 @@ func (m *WebhookConfigurationSummary) Serialize(writer i878a80d2330e89d26896388a
             return err
         }
     }
-    if m.GetEnabled() != nil {
-        cast := (*m.GetEnabled()).String()
-        err := writer.WriteStringValue("enabled", &cast)
+    {
+        err := writer.WriteBoolValue("enabled", m.GetEnabled())
         if err != nil {
             return err
         }
@@ -295,7 +294,7 @@ func (m *WebhookConfigurationSummary) SetDataVersion(value *string)() {
     m.data_version = value
 }
 // SetEnabled sets the enabled property value. The enabled property
-func (m *WebhookConfigurationSummary) SetEnabled(value *WebhookConfigurationSummary_enabled)() {
+func (m *WebhookConfigurationSummary) SetEnabled(value *bool)() {
     m.enabled = value
 }
 // SetEnterpriseName sets the enterprise_name property value. The enterprise_name property
@@ -328,7 +327,7 @@ type WebhookConfigurationSummaryable interface {
     GetCreatedAt()(*string)
     GetCreatedBy()(*string)
     GetDataVersion()(*string)
-    GetEnabled()(*WebhookConfigurationSummary_enabled)
+    GetEnabled()(*bool)
     GetEnterpriseName()(*string)
     GetEventTypes()([]WebhookEventType)
     GetId()(*string)
@@ -338,7 +337,7 @@ type WebhookConfigurationSummaryable interface {
     SetCreatedAt(value *string)()
     SetCreatedBy(value *string)()
     SetDataVersion(value *string)()
-    SetEnabled(value *WebhookConfigurationSummary_enabled)()
+    SetEnabled(value *bool)()
     SetEnterpriseName(value *string)()
     SetEventTypes(value []WebhookEventType)()
     SetId(value *string)()

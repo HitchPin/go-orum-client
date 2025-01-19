@@ -3653,6 +3653,57 @@
             "bearerAuth": [ ]
           }
         ]
+      },
+      "get": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "List webhook configurations",
+        "description": "List all webhook configurations",
+        "operationId": "list-webhook-configurations",
+        "parameters": [
+          {
+            "name": "Orum-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrumVersion"
+            },
+            "x-orum-error-invalid": {
+              "known-error": "version_invalid"
+            },
+            "x-orum-error-missing": {
+              "known-error": "version_missing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetKeypairResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [ ]
+          }
+        ]
       }
     }
   },
@@ -7594,6 +7645,17 @@
           }
         }
       },
+      "GetKeypairResponse": {
+        "required": [
+          "enterprise_keypair"
+        ],
+        "type": "object",
+        "properties": {
+          "enterprise_keypair": {
+            "$ref": "#/components/schemas/EnterpriseKeypair"
+          }
+        }
+      },
       "CreateWebhookConfiguration": {
         "required": [
           "event_types",
@@ -7610,10 +7672,7 @@
             }
           },
           "enabled": {
-            "enum": [
-              "true",
-              "false"
-            ]
+            "type": "boolean"
           },
           "url": {
             "type": "string",
@@ -7686,10 +7745,7 @@
             }
           },
           "enabled": {
-            "enum": [
-              "true",
-              "false"
-            ]
+            "type": "boolean"
           },
           "url": {
             "type": "string",
